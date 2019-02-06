@@ -36,7 +36,7 @@ Francisco is a software development contractor with professional experience of m
 Assen is a software development contractor with professional experience of more than 20 years.
 He is fascinated by the power that mathematical foundations of the functional programming give to 
 software engineering practice.
-His is interested in software architecture, domain driven design and functional programming.
+He is interested in software architecture, domain driven design and functional programming.
 
 * [LinkedIn](https://www.linkedin.com/in/kolov/)
 * [Twitter](https://twitter.com/kolov)
