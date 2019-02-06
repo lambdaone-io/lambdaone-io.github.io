@@ -29,3 +29,15 @@ Francisco is a software development contractor with professional experience of m
 * [LinkedIn](https://www.linkedin.com/in/francisco-miguel-ar%C3%A1mburo-torres-0a340485/)
 * [Twitter](https://twitter.com/francoaramburo)
 * [GitHub](https://github.com/francoara)
+
+### Assen Kolov
+#### Member - Amsterdam, NL
+
+Assen is a software development contractor with professional experience of more than 20 years.
+He is fascinated by the power that the mathematical foundations of functional programming give to 
+software engineering practice.
+He is interested in software architecture, domain driven design and functional programming.
+
+* [LinkedIn](https://www.linkedin.com/in/kolov/)
+* [Twitter](https://twitter.com/kolov)
+* [GitHub](https://github.com/kolov)
