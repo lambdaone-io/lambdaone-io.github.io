@@ -17,7 +17,7 @@ or `Either[Error, Int]` to provide error information on failure. - every `String
 
 Typically, such computations are being chained - the result from one computation is used as input for the next one. 
 For example, given a city name, we first look up its coordinates, then we look up the weather forecast for this location. 
-Finally, iamagin we do not need the whole forecast but only the temperature, which may or may not be present in the forecast.
+Finally, imagine we do not need the whole forecast but only the temperature, which may or may not be present in the forecast.
 Sequential computations like this are modelled by monads. Scala offers special syntax to make sequencing more readable.
 In our example, given `lookupCity(city: String]: Either[Error, Location]`,
  ``weather(l: Location): Either[Error, Forecast]`` and ``getTemperature(f: Forecats): Option[Double]``,
@@ -31,27 +31,30 @@ def forecast(city: String) : Either[Error, Double] =
  } yield (forecast)
 ```
 
-Monads representing error situations shortcut on error - once there is `None`, or `Left`, this value gets passed 
+Monads representing error situations shortcut on error - once there is `None`, or `Left`, oper funcions tn the 
+sequence to not get called and the error value gets passed 
 directly to `yield`.
 
-Real applications rarely can be modeled only with the `Option` or `Either` types - they include 
-interactions with the world, which mail fail.
+Real applications include 
+interactions with the world, which mail fail in their own way, on top of the errors modelled
+by `Option` or `Either` types.
 For example, if we call a remote service to look up the city, the call itself may fail, even 
-with valid city name as input. Think of a network error, or a database error. Intereactions with the worlds
+with valid city name as input. Think of a network error, or a database error. In pure FP,
+interactions with the worlds
 are modelled by `IO`, which is a monad itself - chaining effects and short-cutting on failure
 can be coded using the same for comprehension syntax. 
 
 If 
-we forget business errors and only think of `IO` errors, given 
+we forget business errors for a moment and only think of `IO` errors, given 
 `lookupCity(city: String]: IO[Location` and ``weather(l: Location]: IO[Forecast]``,
 we can do: 
 ```
-def forecast(city: String) : IO[Forecast] =
+def forecast(city: String) : IO[Double] =
 for {
   location <- lookupCity(city)
   forecast <- weather(location)
   temp <- getTemperature(forecast).map(IO.pure(_)).getOrElse(IO.fail(new Exception("No temp in forecast"))
-} yield (forecast)
+} yield (temp)
 ```
 `forecast` gives a value of type `IO` which describes the computation. To get the result,we have to 
 execute it. `IO` can end in either success or failure and in case of failure `flatMap` chains get short-circuited.
