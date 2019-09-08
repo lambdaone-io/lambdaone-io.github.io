@@ -56,10 +56,12 @@ for {
   temp <- getTemperature(forecast).map(IO.pure(_)).getOrElse(IO.fail(new Exception("No temp in forecast"))
 } yield (temp)
 ```
-`forecast` gives a value of type `IO` which describes the computation. To get the result,we have to 
-execute it. `IO` can end in either success or failure and in case of failure `flatMap` chains get short-circuited.
 
-`IO` shortcuts because it is a `MonadError` besides being a monad. We could abstract this to:
+`forecast` gives a value of type `IO` which describes the computation. To get the result,we have to 
+execute it. The execution may end up in either success or failure and in case of failure `flatMap` chains get short-circuited.
+
+How does `IO` shortcut, if its type contains noe error? It does, because it is a `MonadError` next to being a monad. 
+We could abstract `IO` to a type `F` with the necessary typeclasses to the sequencing and shortcutting: 
 ```
 def forecast[F[_] : Monad : MonadError] (city: String) : F[Forecast] =
 for {
@@ -70,7 +72,7 @@ for {
 ```
 
 Most real applications will have to handle both types of errors - IO errors and business logic errors. If
-we replace `IO` with a generic `F` effect, the type becomes `F[Either[Error, A]]` - nested effects.
+we stick to th generic `F` effect, the type will be `F[Either[Error, A]]` - we hav to deal with nested effects.
 
 If we try to handle both effects errors ourselves, things can get ugly fast.
 Let's see what happens when we have `lookupCity(city: String]: F[Either[Error, Location]]` and 
@@ -93,11 +95,11 @@ for {
   }
 } yield (temp)
 ```
-Yes, things can get ugly fast this way.
+And this is quite a simple case with 2 services and one simple function. Yes, things can get ugly fast this way.
 
 ## Monad Transformers
 
-As we see in the last piece of code, monads do not combine automatically - we need to handle the inner monad
+As we see in the last piece of code, nested monads do not combine automatically - we need to handle the inner monad
 ourselves. Monad transformers can do the inner monad handling for us. Each monad requires a transformer knowing how to
 flatMap this particular type.
  For `F[Either[Error,A]]` we need the `EitherT` transformer - both `cats` and `scalaz` have them. For `cats` documentation:
