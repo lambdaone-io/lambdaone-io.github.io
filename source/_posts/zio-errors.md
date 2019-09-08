@@ -1,11 +1,11 @@
 ---
-title: io-errors-handle
+title: Error Handling in Pure Functional Applications with ZIO
 date: 2019-09-06 21:05:38
 tags:
 - IO
+- ZIO
 - Side Effects
-- Error Handling
-- Pure Functional Programming
+- Error Handling 
 ---
 
 # Error Handling with ZIO in Pure Functional Applications
