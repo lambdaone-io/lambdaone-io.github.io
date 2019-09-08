@@ -162,14 +162,16 @@ Cats has one type parameter - `IO[A]` returns a value of type `A`. It still shor
 
 # Conclusion
 
-The developers of an application may choose to to use a final tagless encoded effect 
-throughout the whole application. Today the cats IO trait is the de facto standard, with support for async operations
-the abstract effect can be defined as:
-   `F[_] : Sync : Effect : Concurrent`. Both `IO` and `ZIO` provide implementation of these type classes.
+The developers of an application may choose to keep the effect type polymorphic
+throughout the whole application. Today the cats typeclasses are the facto standard, so
+the simplest polimorfic type would be:
+   `F[_] : Sync`. Both `IO` and `ZIO` provide implementation of thes `Sync` type class, and
+   of few more needed for asynchronous I/O.
    
 The cost to pay for keeping compatibility with any implementation, is the extra steps needind to 
 handle error handling flows - monad transformers, as shown above, or maybe MTL. If, on the other hand,
-the application commits to ZIO, the bifunctor approach to errors results in greatly improved readability. 
+the application commits to ZIO, the bifunctor approach to errors results in code
+that is much simpler to write and read.
 
 
 
