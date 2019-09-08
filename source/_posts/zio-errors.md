@@ -168,7 +168,7 @@ the simplest polimorfic type would be:
    `F[_] : Sync`. Both `IO` and `ZIO` provide implementation of thes `Sync` type class, and
    of few more needed for asynchronous I/O.
    
-The cost to pay for keeping compatibility with any implementation, is the extra steps needind to 
+The cost to pay for keeping compatibility with any implementation, is the extra steps needing to 
 handle error handling flows - monad transformers, as shown above, or maybe MTL. If, on the other hand,
 the application commits to ZIO, the bifunctor approach to errors results in code
 that is much simpler to write and read.
