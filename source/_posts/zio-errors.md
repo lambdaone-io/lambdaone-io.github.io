@@ -31,12 +31,13 @@ def forecast(city: String) : Either[Error, Double] =
  } yield (forecast)
 ```
 
-Monads representing error situations shortcut on error - once there is `None`, or `Left`, oper funcions tn the 
+Monads representing error situations shortcut on error - once there is `None`, or `Left`, other functions 
+in the 
 sequence to not get called and the error value gets passed 
 directly to `yield`.
 
 Real applications include 
-interactions with the world, which mail fail in their own way, on top of the errors modelled
+interactions with the world, which may fail in their own way, on top of the errors modelled
 by `Option` or `Either` types.
 For example, if we call a remote service to look up the city, the call itself may fail, even 
 with valid city name as input. Think of a network error, or a database error. In pure FP,
@@ -161,9 +162,14 @@ Cats has one type parameter - `IO[A]` returns a value of type `A`. It still shor
 
 # Conclusion
 
-If you are implementing a library and do not want to tie to a specific IO implementation, it probably makes sense to leep 
-the code abstract to allow user to select between cats IO, ZIO or other alternatives. In an application code, once you have chosen ZIO 
-, the bifunctor approach to error values results in greatly improved readability.
+The developers of an application may choose to to use a final tagless encoded effect 
+throughout the whole application. Today the cats IO trait is the de facto standard, with support for async operations
+the abstract effect can be defined as:
+   `F[_] : Sync : Effect : Concurrent`. Both `IO` and `ZIO` provide implementation of these type classes.
+   
+The cost to pay for keeping compatibility with any implementation, is the extra steps needind to 
+handle error handling flows - monad transformers, as shown above, or maybe MTL. If, on the other hand,
+the application commits to ZIO, the bifunctor approach to errors results in greatly improved readability. 
 
 
 
