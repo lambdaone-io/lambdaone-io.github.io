@@ -17,13 +17,13 @@ or `Either[Error, Int]` to provide error information on failure. - every `String
 
 Typically, such computations are being chained - the result from one computation is used as input for the next one. 
 For example, given a city name, we first look up its coordinates, then we look up the weather forecast for this location. 
-As last step, we do not need need the whole forecast but only the temperature, which may be present or not.
-Sequential computations are represented by monads. Scala offers special syntax to make them more readable.
-For example, given `lookupCity(city: String]: Either[Error, Location]`,
+Finally, iamagin we do not need the whole forecast but only the temperature, which may or may not be present in the forecast.
+Sequential computations like this are modelled by monads. Scala offers special syntax to make sequencing more readable.
+In our example, given `lookupCity(city: String]: Either[Error, Location]`,
  ``weather(l: Location): Either[Error, Forecast]`` and ``getTemperature(f: Forecats): Option[Double]``,
-we can sequence them to `forecast(city: String) : Either[Error, Forecast]` with
+we can do
 ```
-def forecast(city: String) : Either[Error, Forecast] =
+def forecast(city: String) : Either[Error, Double] =
  for {
   location <- lookupCity(city)
   forecast <- weather(location)
