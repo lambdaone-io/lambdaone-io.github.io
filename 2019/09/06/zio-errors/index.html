@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Error Handling in Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String from every Int. As">
+    <meta name="description" content="Error Handling in Functional ApplicationsIn functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String from every Int. As not">
 <meta name="keywords" content="IO,Side Effects,ZIO,Error Handling">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Error Handling in Functional Applications - from Monad Transformers to ZIO">
 <meta property="og:url" content="http://lambdaone.io/2019/09/06/zio-errors/index.html">
 <meta property="og:site_name" content="Lambda One">
-<meta property="og:description" content="Error Handling in Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String from every Int. As">
+<meta property="og:description" content="Error Handling in Functional ApplicationsIn functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String from every Int. As not">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-10T09:27:33.438Z">
+<meta property="og:updated_time" content="2019-09-10T16:01:39.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Error Handling in Functional Applications - from Monad Transformers to ZIO">
-<meta name="twitter:description" content="Error Handling in Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String from every Int. As">
+<meta name="twitter:description" content="Error Handling in Functional ApplicationsIn functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String from every Int. As not">
     
     
         
@@ -145,10 +145,10 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="Error-Handling-in-Functional-Applications"><a href="#Error-Handling-in-Functional-Applications" class="headerlink" title="Error Handling in Functional Applications"></a>Error Handling in Functional Applications</h1><p>In pure functional programming, functions are total - every input produces output. For example, <code>toString(i: Int) : String</code> 
-produces a <code>String</code> from every <code>Int</code>. As not every <code>String</code> can be converted to an <code>Int</code>, we can use <code>Option[int]</code> to
-return <code>None</code> when no conversion is possible, 
-or <code>Either[Error, Int]</code> to provide error information on failure - every <code>String</code> produces either an <code>Error</code> or an <code>Int</code>. </p>
+    <h1 id="Error-Handling-in-Functional-Applications"><a href="#Error-Handling-in-Functional-Applications" class="headerlink" title="Error Handling in Functional Applications"></a>Error Handling in Functional Applications</h1><p>In functional programming, functions are total - every input produces output. For example, <code>toString(i: Int) : String</code> 
+produces a <code>String</code> from every <code>Int</code>. As not every <code>String</code> can be converted to an <code>Int</code>, we can define <code>toInt(s: String) : Option[Int]</code>,
+returning <code>None</code> when no conversion is possible.
+Or, even better - we can return <code>Either[Error, Int]</code> to provide error information on failure - every <code>String</code> produces either an <code>Error</code> or an <code>Int</code>. </p>
 <p>Typically, such computations are being chained - the result of one computation is used as input for the next one. 
 For example, given a city name, we first look up its coordinates, then we look up the weather forecast for this location. 
 Finally, imagine we do not need the whole forecast but only the temperature, which may or may not be present in the forecast.
@@ -219,7 +219,7 @@ Cats has one type parameter - <code>IO[A]</code> returns a value of type <code>A
 <p>Similarly, syntax can be added to convert <code>Option</code> and other types to ZIO success/error.</p>
 <h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>The developers of an application may choose to keep the effect type polymorphic
 throughout the whole application. Today the cats typeclasses are de facto standard, so
-the simplest polymorfic type would be:
+the simplest polymorphic type would be:
    <code>F[_] : Sync</code>. Both <code>IO</code> and <code>ZIO</code> provide implementation of the <code>cats.еffect.Sync</code> type class, and
    of few more needed for asynchronous I/O.</p>
 <p>The cost to pay for keeping compatibility with any implementation, is the extra steps needing to 
