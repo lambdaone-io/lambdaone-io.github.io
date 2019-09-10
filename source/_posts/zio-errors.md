@@ -6,6 +6,7 @@ tags:
 - ZIO
 - Side Effects
 - Error Handling 
+author: Assen Kolov
 ---
 
 # Error Handling with ZIO in Pure Functional Applications
@@ -31,9 +32,9 @@ def forecast(city: String) : Either[Error, Double] =
  } yield (forecast)
 ```
 
-Monads representing error situations shortcut on error - once there is `None`, or `Left`, other functions 
+Monadic types representing error situations shortcut on error - once there is `None`, or `Left`, the other rows 
 in the 
-sequence to not get called and the error value gets passed 
+sequence will not get called and the error value gets passed 
 directly to `yield`.
 
 Real applications include 
@@ -185,8 +186,12 @@ not be noticeable in a typical business application.
 
 ## References
 
-[1] [Cats Type Classes](https://typelevel.org/cats/typeclasses.html)
-[2] [ZIO](https://zio.dev/docs/overview/overview_index)
+1. [Cats Type Classes](https://typelevel.org/cats/typeclasses.html)
+2. [ZIO](https://zio.dev/docs/overview/overview_index)
+
+## About me
+
+[Assen Kolov](http://localhost:4000/about/#Assen-Kolov)
 
 
 
