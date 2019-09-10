@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Error Handling with ZIO in Pure Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form">
+    <meta name="description" content="Error Handling in Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form every Int. As">
 <meta name="keywords" content="IO,Side Effects,ZIO,Error Handling">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Error Handling in Pure Functional Applications with ZIO">
-<meta property="og:url" content="http://localhost:4000/2019/09/06/zio-errors/index.html">
+<meta property="og:title" content="Error Handling in Functional Applications - from Monad Transformers to ZIO">
+<meta property="og:url" content="http://lambdaone.io/2019/09/06/zio-errors/index.html">
 <meta property="og:site_name" content="Lambda One">
-<meta property="og:description" content="Error Handling with ZIO in Pure Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form">
+<meta property="og:description" content="Error Handling in Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form every Int. As">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-10T06:39:34.754Z">
+<meta property="og:updated_time" content="2019-09-10T07:58:50.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Error Handling in Pure Functional Applications with ZIO">
-<meta name="twitter:description" content="Error Handling with ZIO in Pure Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form">
+<meta name="twitter:title" content="Error Handling in Functional Applications - from Monad Transformers to ZIO">
+<meta name="twitter:description" content="Error Handling in Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form every Int. As">
     
     
         
@@ -37,7 +37,7 @@
         
     
     <!-- title -->
-    <title>Error Handling in Pure Functional Applications with ZIO</title>
+    <title>Error Handling in Functional Applications - from Monad Transformers to ZIO</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -87,21 +87,21 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://localhost:4000/2019/09/06/zio-errors/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://localhost:4000/2019/09/06/zio-errors/&text=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://localhost:4000/2019/09/06/zio-errors/&is_video=false&description=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Error Handling in Pure Functional Applications with ZIO&body=Check out this article: http://localhost:4000/2019/09/06/zio-errors/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://localhost:4000/2019/09/06/zio-errors/&name=Error Handling in Pure Functional Applications with ZIO&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://lambdaone.io/2019/09/06/zio-errors/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://lambdaone.io/2019/09/06/zio-errors/&text=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://lambdaone.io/2019/09/06/zio-errors/&is_video=false&description=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Error Handling in Functional Applications - from Monad Transformers to ZIO&body=Check out this article: http://lambdaone.io/2019/09/06/zio-errors/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://lambdaone.io/2019/09/06/zio-errors/&name=Error Handling in Functional Applications - from Monad Transformers to ZIO&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Error-Handling-with-ZIO-in-Pure-Functional-Applications"><span class="toc-number">1.</span> <span class="toc-text">Error Handling with ZIO in Pure Functional Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Plain-Scala"><span class="toc-number">1.1.</span> <span class="toc-text">Plain Scala</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monad-Transformers"><span class="toc-number">1.2.</span> <span class="toc-text">Monad Transformers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZIO"><span class="toc-number">1.3.</span> <span class="toc-text">ZIO</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">2.1.</span> <span class="toc-text">References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#About-me"><span class="toc-number">2.2.</span> <span class="toc-text">About me</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Error-Handling-in-Functional-Applications"><span class="toc-number">1.</span> <span class="toc-text">Error Handling in Functional Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Plain-Scala"><span class="toc-number">1.1.</span> <span class="toc-text">Plain Scala</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monad-Transformers"><span class="toc-number">1.2.</span> <span class="toc-text">Monad Transformers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZIO"><span class="toc-number">1.3.</span> <span class="toc-text">ZIO</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">2.1.</span> <span class="toc-text">References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#About-me"><span class="toc-number">2.2.</span> <span class="toc-text">About me</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -113,7 +113,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        Error Handling in Pure Functional Applications with ZIO
+        Error Handling in Functional Applications - from Monad Transformers to ZIO
     </h1>
 
 
@@ -145,7 +145,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="Error-Handling-with-ZIO-in-Pure-Functional-Applications"><a href="#Error-Handling-with-ZIO-in-Pure-Functional-Applications" class="headerlink" title="Error Handling with ZIO in Pure Functional Applications"></a>Error Handling with ZIO in Pure Functional Applications</h1><p>In pure functional programming, functions are total - every input produces output. For example, <code>toString(i: Int) : String</code> 
+    <h1 id="Error-Handling-in-Functional-Applications"><a href="#Error-Handling-in-Functional-Applications" class="headerlink" title="Error Handling in Functional Applications"></a>Error Handling in Functional Applications</h1><p>In pure functional programming, functions are total - every input produces output. For example, <code>toString(i: Int) : String</code> 
 produces a <code>String</code> form every <code>Int</code>. As not every <code>String</code> can be converted to an <code>Int</code>, we can use <code>Option[int]</code> to
 return <code>None</code> when no conversion is possible, 
 or <code>Either[Error, Int]</code> to provide error information on failure - every <code>String</code> produces either an <code>Error</code> or an <code>Int</code>. </p>
@@ -231,7 +231,7 @@ not be noticeable in a typical business application.</p>
 <li><a href="https://typelevel.org/cats/typeclasses.html" target="_blank" rel="noopener">Cats Type Classes</a></li>
 <li><a href="https://zio.dev/docs/overview/overview_index" target="_blank" rel="noopener">ZIO</a></li>
 </ol>
-<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://localhost:4000/about/#Assen-Kolov">Assen Kolov</a></p>
+<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://localhost:4000/about/#Assen-Kolov" target="_blank" rel="noopener">Assen Kolov</a></p>
 
   </div>
 </article>
@@ -257,21 +257,21 @@ not be noticeable in a typical business application.</p>
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Error-Handling-with-ZIO-in-Pure-Functional-Applications"><span class="toc-number">1.</span> <span class="toc-text">Error Handling with ZIO in Pure Functional Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Plain-Scala"><span class="toc-number">1.1.</span> <span class="toc-text">Plain Scala</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monad-Transformers"><span class="toc-number">1.2.</span> <span class="toc-text">Monad Transformers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZIO"><span class="toc-number">1.3.</span> <span class="toc-text">ZIO</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">2.1.</span> <span class="toc-text">References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#About-me"><span class="toc-number">2.2.</span> <span class="toc-text">About me</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Error-Handling-in-Functional-Applications"><span class="toc-number">1.</span> <span class="toc-text">Error Handling in Functional Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Plain-Scala"><span class="toc-number">1.1.</span> <span class="toc-text">Plain Scala</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monad-Transformers"><span class="toc-number">1.2.</span> <span class="toc-text">Monad Transformers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZIO"><span class="toc-number">1.3.</span> <span class="toc-text">ZIO</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">2.1.</span> <span class="toc-text">References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#About-me"><span class="toc-number">2.2.</span> <span class="toc-text">About me</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://localhost:4000/2019/09/06/zio-errors/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://localhost:4000/2019/09/06/zio-errors/&text=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://localhost:4000/2019/09/06/zio-errors/&is_video=false&description=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Error Handling in Pure Functional Applications with ZIO&body=Check out this article: http://localhost:4000/2019/09/06/zio-errors/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://localhost:4000/2019/09/06/zio-errors/&name=Error Handling in Pure Functional Applications with ZIO&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://lambdaone.io/2019/09/06/zio-errors/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://lambdaone.io/2019/09/06/zio-errors/&text=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://lambdaone.io/2019/09/06/zio-errors/&is_video=false&description=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Error Handling in Functional Applications - from Monad Transformers to ZIO&body=Check out this article: http://lambdaone.io/2019/09/06/zio-errors/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://lambdaone.io/2019/09/06/zio-errors/&title=Error Handling in Functional Applications - from Monad Transformers to ZIO"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://lambdaone.io/2019/09/06/zio-errors/&name=Error Handling in Functional Applications - from Monad Transformers to ZIO&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
