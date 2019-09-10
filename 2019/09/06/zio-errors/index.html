@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Error Handling with ZIO in Pure Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form">
+<meta name="keywords" content="IO,Side Effects,ZIO,Error Handling">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Error Handling in Pure Functional Applications with ZIO">
+<meta property="og:url" content="http://localhost:4000/2019/09/06/zio-errors/index.html">
+<meta property="og:site_name" content="Lambda One">
+<meta property="og:description" content="Error Handling with ZIO in Pure Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-10T06:39:34.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Error Handling in Pure Functional Applications with ZIO">
+<meta name="twitter:description" content="Error Handling with ZIO in Pure Functional ApplicationsIn pure functional programming, functions are total - every input produces output. For example, toString(i: Int) : String  produces a String form">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Error Handling in Pure Functional Applications with ZIO</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/02/11/Introduction-to-FP-1-Expressions/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://localhost:4000/2019/09/06/zio-errors/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://localhost:4000/2019/09/06/zio-errors/&text=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://localhost:4000/2019/09/06/zio-errors/&is_video=false&description=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Error Handling in Pure Functional Applications with ZIO&body=Check out this article: http://localhost:4000/2019/09/06/zio-errors/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://localhost:4000/2019/09/06/zio-errors/&name=Error Handling in Pure Functional Applications with ZIO&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Error-Handling-with-ZIO-in-Pure-Functional-Applications"><span class="toc-number">1.</span> <span class="toc-text">Error Handling with ZIO in Pure Functional Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Plain-Scala"><span class="toc-number">1.1.</span> <span class="toc-text">Plain Scala</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monad-Transformers"><span class="toc-number">1.2.</span> <span class="toc-text">Monad Transformers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZIO"><span class="toc-number">1.3.</span> <span class="toc-text">ZIO</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">2.1.</span> <span class="toc-text">References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#About-me"><span class="toc-number">2.2.</span> <span class="toc-text">About me</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Error Handling in Pure Functional Applications with ZIO
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Assen Kolov</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-09-06T19:05:38.000Z" itemprop="datePublished">2019-09-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Error-Handling/">Error Handling</a>, <a class="tag-link" href="/tags/IO/">IO</a>, <a class="tag-link" href="/tags/Side-Effects/">Side Effects</a>, <a class="tag-link" href="/tags/ZIO/">ZIO</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Error-Handling-with-ZIO-in-Pure-Functional-Applications"><a href="#Error-Handling-with-ZIO-in-Pure-Functional-Applications" class="headerlink" title="Error Handling with ZIO in Pure Functional Applications"></a>Error Handling with ZIO in Pure Functional Applications</h1><p>In pure functional programming, functions are total - every input produces output. For example, <code>toString(i: Int) : String</code> 
+produces a <code>String</code> form every <code>Int</code>. As not every <code>String</code> can be converted to an <code>Int</code>, we can use <code>Option[int]</code> to
+return <code>None</code> when no conversion is possible, 
+or <code>Either[Error, Int]</code> to provide error information on failure - every <code>String</code> produces either an <code>Error</code> or an <code>Int</code>. </p>
+<p>Typically, such computations are being chained - the result of one computation is used as input for the next one. 
+For example, given a city name, we first look up its coordinates, then we look up the weather forecast for this location. 
+Finally, imagine we do not need the whole forecast but only the temperature, which may or may not be present in the forecast.
+Sequential computations like this are modelled by monads. Scala offers special syntax to make sequencing more readable.
+In our example, given <code>lookupCity(city: String): Either[Error, Location]</code>,
+ <code>weather(l: Location): Either[Error, Forecast]</code> and <code>getTemperature(f: Forecats): Option[Double]</code>,
+we can do
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span></span>(city: <span class="type">String</span>) : <span class="type">Either</span>[<span class="type">Error</span>, <span class="type">Double</span>] =</span><br><span class="line"> <span class="keyword">for</span> &#123;</span><br><span class="line">  location &lt;- lookupCity(city)</span><br><span class="line">  forecast &lt;- weather(location)</span><br><span class="line">  temp &lt;- getTemperature(forecast).toEither(<span class="string">"No temp in forecast"</span>)</span><br><span class="line"> &#125; <span class="keyword">yield</span> (forecast)</span><br></pre></td></tr></table></figure></p>
+<p>Monadic types representing error situations shortcut on error - once there is <code>None</code>, or <code>Left</code>, the other rows 
+in the 
+sequence will not get called and the error value gets passed 
+directly to <code>yield</code>.</p>
+<p>Real applications include 
+interactions with the world, which may fail in their own way, on top of the errors modelled
+by <code>Option</code> or <code>Either</code> types.
+For example, if we call a remote service to look up the city, the call itself may fail, even 
+with valid city name as input. Think of a network error, or a database error. In pure FP,
+interactions with the world
+are modelled by <code>IO</code>, which is a monad itself - chaining effects and short-cutting on failure
+can be coded using the same <code>for</code> comprehension syntax. </p>
+<p>If 
+we forget business errors for a moment and only think of <code>IO</code> errors, given 
+<code>lookupCity(city: String]: IO[Location]</code> and <code>weather(l: Location]: IO[Forecast]</code>,
+we can do: 
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span></span>(city: <span class="type">String</span>) : <span class="type">IO</span>[<span class="type">Double</span>] =</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  location &lt;- lookupCity(city)</span><br><span class="line">  forecast &lt;- weather(location)</span><br><span class="line">  temp &lt;- getTemperature(forecast).map(<span class="type">IO</span>.pure(_)).getOrElse(<span class="type">IO</span>.fail(<span class="keyword">new</span> <span class="type">Exception</span>(<span class="string">"No temp in forecast"</span>))</span><br><span class="line">&#125; <span class="keyword">yield</span> (temp)</span><br></pre></td></tr></table></figure></p>
+<p><code>forecast</code> gives a value of type <code>IO</code> which describes the computation. To get the result ,we have to 
+execute it. The execution may end up in either success or failure and in case of failure <code>flatMap</code> chains get short-circuited.</p>
+<p>How does <code>IO[A]</code> shortcut, if its type contains no error? It does, because it is a <code>MonadError[A, Throwable]</code> next to being a monad. Its working is
+ demonstrated by this short example:
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">for</span> &#123; _ &lt;- <span class="type">IO</span>.raiseError(<span class="keyword">new</span> <span class="type">Exception</span>(<span class="string">"boom"</span>)); b = <span class="number">1</span>&#125; <span class="keyword">yield</span> b).unsafeRunSync <span class="comment">// throws exception</span></span><br></pre></td></tr></table></figure></p>
+<p>We could abstract <code>IO</code> to a type <code>F</code> with the necessary type classes to the sequencing and shortcutting: 
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span></span>[<span class="type">F</span>[_] : <span class="type">Monad</span> : <span class="type">MonadError</span>] (city: <span class="type">String</span>) : <span class="type">F</span>[<span class="type">Forecast</span>] =</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  location &lt;- lookupCity(city)</span><br><span class="line">  forecast &lt;- weather(location)</span><br><span class="line">  temp &lt;- getTemperature(forecast).map(<span class="type">IO</span>.pure(_)).getOrElse(<span class="type">IO</span>.fail(<span class="keyword">new</span> <span class="type">Exception</span>(<span class="string">"No temp in forecast"</span>))</span><br><span class="line">&#125; <span class="keyword">yield</span> (forecast)</span><br></pre></td></tr></table></figure></p>
+<p>Most real applications will have to handle both types of errors - I/O errors and business logic errors. If
+we stick to the generic <code>F</code> effect, the type will be <code>F[Either[Error, A]]</code> - we have to deal with nested effects.</p>
+<p>If we try to handle both effects errors ourselves, things can get ugly fast.
+Let’s see what happens when we have <code>lookupCity(city: String]: F[Either[Error, Location]]</code> and 
+<code>weather(l: Location]: F[Either[Error, Forecast]]</code>. The external monad errors are handled
+by the <code>for</code> comprehension, but we have to take care of the internal one:</p>
+<h2 id="Plain-Scala"><a href="#Plain-Scala" class="headerlink" title="Plain Scala"></a>Plain Scala</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span></span>(city: <span class="type">String</span>) : <span class="type">F</span>[<span class="type">Either</span>[<span class="type">Double</span>]] =</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  location &lt;- lookupCity(city)</span><br><span class="line">  forecast &lt;- location <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Right</span>(l) =&gt; weather(location)</span><br><span class="line">    <span class="keyword">case</span> err @ <span class="type">Left</span>(_) =&gt; <span class="type">F</span>.pure(err)</span><br><span class="line">  &#125;</span><br><span class="line">  temp = forecast <span class="keyword">match</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Right</span>(f) =&gt; getTemperature(forecast).toEither(<span class="string">"No temp in forecast"</span>)</span><br><span class="line">    <span class="keyword">case</span> err =&gt; err</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">yield</span> (temp)</span><br></pre></td></tr></table></figure>
+<p>And this is quite a simple case with 2 services and one effects-free function. Yes, things can get ugly fast this way.</p>
+<h2 id="Monad-Transformers"><a href="#Monad-Transformers" class="headerlink" title="Monad Transformers"></a>Monad Transformers</h2><p>As we see in the last piece of code, nested monads do not combine automatically - we need to know details of the inner monad
+in order to handle the combination of two monads. We can use monad transformers where this logic is encoded - every monadic type requires 
+a particular transformer knowing how to flatMap over it.
+For <code>F[Either[Error,A]]</code> we need the <code>EitherT</code> transformer - both <code>cats</code> and <code>scalaz</code> provide it. From the <code>cats</code> documentation:
+ <em><code>EitherT[F, A, B]</code> wraps a value of type <code>F[Either[A, B]]</code>. An <code>F[C]</code> can be lifted in to <code>EitherT[F, A, C]</code> via <code>EitherT.right</code>,
+ and lifted in to a <code>EitherT[F, C, B]</code> via <code>EitherT.left</code>.</em> With a monad transformer, the combined type is a monad again.
+ Let’s rewrite our example:
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span></span>(city: <span class="type">String</span>) : <span class="type">F</span>[<span class="type">Either</span>[<span class="type">Error</span>, <span class="type">Double</span>]] =</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  location &lt;- <span class="type">EitherT</span>(lookupCity(city))</span><br><span class="line">  forecast &lt;- <span class="type">EitherT</span>(weather(location))</span><br><span class="line">  temp &lt;- <span class="type">EitherT</span>.fromEither(getTemperature(forecast).toEither(<span class="string">"No temp in forecast"</span>))</span><br><span class="line">&#125; <span class="keyword">yield</span> (temp)</span><br></pre></td></tr></table></figure></p>
+<p>Much better! This can be further improved by introducing some syntax, e.g.:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">ErrorOr</span>[<span class="type">E</span>,<span class="type">A</span>] </span>= <span class="type">EitherT</span>[<span class="type">F</span>, <span class="type">E</span>, <span class="type">A</span>]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">implicit</span> <span class="class"><span class="keyword">class</span> <span class="title">feitherToErrorOr</span>[<span class="type">E</span>, <span class="type">A</span>](<span class="params">r: <span class="type">F</span>[<span class="type">E</span> <span class="type">Either</span> <span class="type">A</span>]</span>) </span>&#123; <span class="function"><span class="keyword">def</span> <span class="title">toErrorOr</span></span>: <span class="type">ErrorOr</span>[<span class="type">E</span>, <span class="type">A</span>] = <span class="type">EitherT</span>(r) &#125;</span><br><span class="line">  <span class="keyword">implicit</span> <span class="class"><span class="keyword">class</span> <span class="title">optionToErrorOr</span>[<span class="type">E</span>, <span class="type">A</span>](<span class="params">o: <span class="type">Option</span>[<span class="type">A</span>]</span>) </span>&#123; <span class="function"><span class="keyword">def</span> <span class="title">toErrorOr</span></span>( e: <span class="type">Error</span>): <span class="type">ErrorOr</span>[<span class="type">E</span>, <span class="type">A</span>] = <span class="type">EitherT</span>.fromEither(r.toEither(e) &#125;</span><br></pre></td></tr></table></figure>
+<p>the code above becomes:</p>
+ <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span></span>(city: <span class="type">String</span>) : <span class="type">ErrorOr</span>[<span class="type">Double</span>] =</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  location &lt;- lookupCity(city).toErrorOr</span><br><span class="line">  forecast &lt;-  weather(location).toErrorOr</span><br><span class="line">  temp     &lt;-  getTemperature(forecast).toErrorOr(<span class="string">"No temp in forecast"</span>)</span><br><span class="line">&#125; <span class="keyword">yield</span> (temp)</span><br></pre></td></tr></table></figure>
+<p>The code above looks much nicer. In fact, I saw this on one of my first Scala projects and I was impressed by its power and purity. Later, 
+I have created or contributed to many applications based on this approach. This approach is not perfect - reasoning about types 
+withing the <code>for</code> comprehension 
+can become difficult, and a mistake in that reasoning can call another <code>toErrorOr</code> than the one you had in mind. </p>
+<h2 id="ZIO"><a href="#ZIO" class="headerlink" title="ZIO"></a>ZIO</h2><p><code>ZIO</code> is an alternative IO implementation. Its approach to errors differs from cats <code>IO</code>. 
+Cats has one type parameter - <code>IO[A]</code> returns a value of type <code>A</code>. It still shortcuts on error by inheriting <code>MonadError[A, Throwable]</code>. 
+<code>ZIO</code> chooses to be explicit about the error. It is defined as
+ <code>ZIO[R, E, A]</code>.  ZIO is the effectful version of <code>R =&gt; Either[E, A]</code> - given R, on execution ZIO returns either a value of type 
+ <code>A</code> or an error of type <code>E</code>. Where <code>IO[A]</code> is functorial in <code>A</code>, <code>ZIO[R, E, A]</code> is functorial in both <code>E</code> and <code>A</code>. </p>
+<p> If we decided we don’t need <code>R</code> for now, ZIO provides <code>type IO[+E, +A] = ZIO[Any, E, A]</code>. 
+ For our application, given a specific error type <code>type Error = String</code>, we would have 
+ <code>type AppTask[A] = ZIO[Any, Error, A]</code>. In our ZIO-based application,
+  the business functions would be <code>lookupCity(city: String]: AppTask[Location]</code> 
+  and <code>weather(l: Location]: AppTask[Forecast]</code> and the code:
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span></span>(city: <span class="type">String</span>) : <span class="type">AppTask</span>[<span class="type">Double</span>] =</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  location &lt;- lookupCity(city)</span><br><span class="line">  forecast &lt;-  weather(location)</span><br><span class="line">  temp &lt;-  <span class="type">ZIO</span>.fromOption(getTemperature(forecast)).mapError(_ =&gt; <span class="string">"No temp in forecast"</span>)</span><br><span class="line">&#125; <span class="keyword">yield</span> (temp)</span><br></pre></td></tr></table></figure></p>
+<p>Similarly, syntax can be added to convert <code>Option</code> and other types to ZIO success/error.</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>The developers of an application may choose to keep the effect type polymorphic
+throughout the whole application. Today the cats typeclasses are de facto standard, so
+the simplest polymorfic type would be:
+   <code>F[_] : Sync</code>. Both <code>IO</code> and <code>ZIO</code> provide implementation of the <code>cats.еffect.Sync</code> type class, and
+   of few more needed for asynchronous I/O.</p>
+<p>The cost to pay for keeping compatibility with any implementation, is the extra steps needing to 
+handle error handling flows - monad transformers, as shown above, or maybe MTL. If, on the other hand,
+the application commits to ZIO, the bifunctor approach to errors results in code
+that is much simpler to write and read. There are some performance gains too, but my guess is they would
+not be noticeable in a typical business application.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://typelevel.org/cats/typeclasses.html" target="_blank" rel="noopener">Cats Type Classes</a></li>
+<li><a href="https://zio.dev/docs/overview/overview_index" target="_blank" rel="noopener">ZIO</a></li>
+</ol>
+<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://localhost:4000/about/#Assen-Kolov">Assen Kolov</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Error-Handling-with-ZIO-in-Pure-Functional-Applications"><span class="toc-number">1.</span> <span class="toc-text">Error Handling with ZIO in Pure Functional Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Plain-Scala"><span class="toc-number">1.1.</span> <span class="toc-text">Plain Scala</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monad-Transformers"><span class="toc-number">1.2.</span> <span class="toc-text">Monad Transformers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZIO"><span class="toc-number">1.3.</span> <span class="toc-text">ZIO</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.</span> <span class="toc-text">Conclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">2.1.</span> <span class="toc-text">References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#About-me"><span class="toc-number">2.2.</span> <span class="toc-text">About me</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://localhost:4000/2019/09/06/zio-errors/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://localhost:4000/2019/09/06/zio-errors/&text=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://localhost:4000/2019/09/06/zio-errors/&is_video=false&description=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Error Handling in Pure Functional Applications with ZIO&body=Check out this article: http://localhost:4000/2019/09/06/zio-errors/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://localhost:4000/2019/09/06/zio-errors/&title=Error Handling in Pure Functional Applications with ZIO"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://localhost:4000/2019/09/06/zio-errors/&name=Error Handling in Pure Functional Applications with ZIO&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 The Lambda One members
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
